@@ -1,3 +1,4 @@
+import allure
 import requests
 
 def test_searching_film_by_name():
