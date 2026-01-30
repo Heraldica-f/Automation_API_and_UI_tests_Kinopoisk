@@ -46,7 +46,7 @@ class KinopoiskAPI:
         params = {
             'page': 1,
             'limit': 10,
-            'query': category
+            'category': category
         }
         resp = requests.get(f"{self.base_url}/list", headers=headers, params=params)
         return resp
@@ -58,9 +58,9 @@ class KinopoiskAPI:
         }
 
         params = {
-            'page': None,
-            'limit': None,
-            'query': category
+            'page': '',
+            'limit': '',
+            'category': category
         }
 
         resp = requests.get(f"{self.base_url}/list", headers=headers, params=params)

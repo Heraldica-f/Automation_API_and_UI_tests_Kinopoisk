@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-from pages.AuthPage import AuthPage
+
 from pages.MainPage import MainPage
 
 def text_in_cyrillic_test():

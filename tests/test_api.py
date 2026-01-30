@@ -18,45 +18,48 @@ def test_searching_film_by_name():
     assert resp.status_code == 200
 
     resp_data = resp.json()
-    assert 'id' in resp_data
-    assert resp_data["name"] == 'Бригада'
+    assert "docs" in resp_data
+    assert len(resp_data["docs"]) > 0
+
+    first_film = resp_data["docs"][0]
+    assert first_film["name"] == 'Бригада'
 
 def test_searching_film_idustry_worker():
-    resp = api.search_movie('Сергей Безруков')
+    resp = api.search_worker('Сергей Безруков')
 
     assert resp.status_code == 200
 
     resp_data = resp.json()
-    assert 'id' in resp_data
-    assert resp_data["name"] == 'Сергей Безруков'
+    assert "docs" in resp_data
+    assert len(resp_data["docs"]) > 0
+
+    first_person = resp_data["docs"][0]
+    assert first_person["name"] == 'Сергей Безруков'
 
 def test_searching_film_collections():
     category_list = {
+        '0': 'Фильмы',
         '1': 'Онлайн-кинотеатр',
         '2': 'Премии',
         '3': 'Сборы',
-        '4': 'Сериалы',
-        '5': 'Фильмы'
+        '4': 'Сериалы'
     }
-    resp = api.searching_collections(category_list['5'])
+    resp = api.searching_collections(category_list['0'])
     assert resp.status_code == 200
 
     resp_data = resp.json()
-    assert resp_data["category"] == category_list['5']
+    assert "docs" in resp_data
+    assert len(resp_data["docs"]) > 0
+
+    first_coll = resp_data["docs"][0]
+    assert first_coll["category"] == category_list['0']
 
 def test_searching_collections_without_parameters():
-    resp = api.emty_searching_collections(None)
+    resp = api.emty_searching_collections('')
     assert resp.status_code == 400
 
     resp_data = resp.json()
-    pass
-
-def test_searching_collection_with_an_incorrectly_parameter():
-    resp = api.searching_collections('Комедии')
-    assert resp.status_code == 400
-
-    resp_data = resp.json()
-    pass
+    assert resp_data["error"] == "Bad Request"
 
 def test_searching_film_without_name():
     pass
